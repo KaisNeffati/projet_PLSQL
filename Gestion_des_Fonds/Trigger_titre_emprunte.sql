@@ -1,0 +1,11 @@
+CREATE OR REPLACE TRIGGER titre_emprunte
+BEFORE UPDATE OF TITRE ON FONDS
+FOR EACH ROW
+DECLARE
+nbr number:=0;
+BEGIN
+SELECT Count(cotef) INTO nbr FROM EMPRUNT 
+WHERE cotef=:OLD.cotef;
+IF (nbr>0) THEN RAISE_APPLICATION_ERROR(-20100, 'le titre est emprunte');
+END IF;
+END titre_emprunte;

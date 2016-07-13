@@ -1,0 +1,12 @@
+CREATE OR REPLACE PROCEDURE Modifier_adherent(vnoAdh ADHERENT.NOADH%TYPE,vnom ADHERENT.NOM%TYPE,vprenom ADHERENT.PRENOM%TYPE,vadresse ADHERENT.ADRESSE%TYPE,vdateAdh ADHERENT.DATEADH%TYPE
+) IS
+n BOOLEAN;
+BEGIN
+n:=Exist_Adherent(vnoAdh);
+IF (n=true) THEN
+  UPDATE ADHERENT SET NOM=vnom,prenom=vprenom,ADRESSE=vadresse,DATEADH=vdateAdh WHERE NOADH=vnoAdh;
+ELSE
+DBMS_OUTPUT.PUT_LINE('ADHRENT n Exist pas');
+END IF;
+Commit;
+END Modifier_adherent;
